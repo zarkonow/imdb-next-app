@@ -1,12 +1,11 @@
-import User from "../models/user.model";
-import { connect } from "../mongodb/mongoose";
-
+import User from '../models/user.model';
+import { connect } from '../mongodb/mongoose';
 export const createOrUpdateUser = async (
   id,
-  email_addresses,
   first_name,
   last_name,
-  image_url
+  image_url,
+  email_addresses
 ) => {
   try {
     await connect();
@@ -14,25 +13,24 @@ export const createOrUpdateUser = async (
       { clerkId: id },
       {
         $set: {
-          email: email_addresses[0].email_address,
           firstName: first_name,
           lastName: last_name,
           profilePicture: image_url,
+          email: email_addresses[0].email_address,
         },
       },
       { upsert: true, new: true }
     );
     return user;
   } catch (error) {
-    console.log("Error creating or updating user: ", error);
+    console.log('Error: Could not create or update user:', error);
   }
 };
-
 export const deleteUser = async (id) => {
   try {
     await connect();
-    await User.findByIdAndDelete(id);
+    await User.findOneAndDelete({ clerkId: id });
   } catch (error) {
-    console.log("Error deleting user: ", error);
+    console.log('Error: Could not delete user:', error);
   }
 };

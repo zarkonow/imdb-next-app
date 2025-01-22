@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 const favSchema = new mongoose.Schema({
   movieId: {
     type: String,

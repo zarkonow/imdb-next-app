@@ -11,8 +11,6 @@ export const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: "imdb-next-clerk",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
     });
     initialized = true;
     console.log("Connected to MongoDB");
@@ -20,3 +18,4 @@ export const connect = async () => {
     console.log("Error connecting to MongoDB: ", error);
   }
 };
+

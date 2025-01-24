@@ -1,20 +1,20 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
+'use client';
 
-export default function NavBarItem({ title, param }) {
-  const genre = usePathname().split("/")[2];
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
+export default function NavbarItem({ title, param }) {
+  const searchParams = useSearchParams();
+  const genre = searchParams.get('genre');
   return (
-    <div className="">
+    <div>
       <Link
-        className={` hover:text-amber-500 font-semibold  ${
+        className={`hover:text-amber-600 font-semibold ${
           genre === param
-            ? "underline underline-offset-8 decoration-4 text-amber-300 rounded-lg"
-            : ""
-        }  `}
-        href={`/top/${param}`}
+            ? 'underline underline-offset-8 decoration-4 decoration-amber-500 rounded-lg'
+            : ''
+        }`}
+        href={`/?genre=${param}`}
       >
         {title}
       </Link>

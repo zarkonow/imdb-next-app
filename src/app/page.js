@@ -1,30 +1,32 @@
-import Results from "@/components/Results";
+import { Suspense } from 'react';
+import Results from '@/components/Results';
 
 const API_KEY = process.env.API_KEY;
 
-export default async function Home({ searchParams }) {
-  // Sačekaj da se searchParams učita
-  const genre = searchParams?.genre || "fetchTrending";
+async function FetchResults({ genre }) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3${
+      genre === 'fetchTopRated' ? `/movie/top_rated` : `/trending/all/week`
+    }?api_key=${API_KEY}&language=en-US&page=1`,
+    { next: { revalidate: 10000 } }
+  );
 
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
 
-    const res = await fetch(
-      `https://api.themoviedb.org/3${
-        genre === "fetchTopRated" ? `/movie/top_rated` : `/trending/all/week`
-      }?api_key=${API_KEY}&language=en-US&page=1`,
-      { next: { revalidate: 10000 } }
-    );
+  const data = await res.json();
+  return <Results results={data.results} />;
+}
 
-    if (!res.ok) {
-      throw new Error("Nije uspelo preuzimanje podataka");
-    }
+export default function Home({ searchParams }) {
+  const genre = searchParams.genre || 'fetchTrending';
 
-    const data = await res.json();
-    const results = data.results;
-
-    return (
-      <div>
-        <Results results={results} />
-      </div>
-    );
-  
+  return (
+    <div>
+      <Suspense fallback={<p>Loading...</p>}>
+        <FetchResults genre={genre} />
+      </Suspense>
+    </div>
+  );
 }

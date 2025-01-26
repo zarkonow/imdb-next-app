@@ -11,10 +11,10 @@ export default async function Home({ searchParams }) {
       `https://api.themoviedb.org/3${
         genre === 'fetchTopRated' ? `/movie/top_rated` : `/trending/all/week`
       }?api_key=${API_KEY}&language=en-US&page=1`,
-      { next: { revalidate: 3} }
+      { next: { revalidate: 10000} }
     );
     resolve(response);
-  },2000);
+  },500);
 
   })
 

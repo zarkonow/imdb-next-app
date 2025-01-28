@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Providers from "@/components/ThemeCom";
 import { ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/components/NavBar";
+import SearchBox from "@/components/SearchBox";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
           <Providers>
             <Header />
             <NavBar/>
+            <SearchBox/>
             {children}
           </Providers>
         </body>

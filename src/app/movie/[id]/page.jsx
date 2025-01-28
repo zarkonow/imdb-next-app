@@ -26,8 +26,8 @@ export default async function MoviePage({ params }) {
     : "/path/to/fallback-image.jpg"; // Add a fallback image path
 
   return (
-    <div className="w-full">
-      <div className="p-4 md:pt-8 flex flex-col md:flex-row content-center max-w-6xl mx-auto md:space-x-6">
+    <div className="w-full ">
+      <div className="text-gray-300  p-4 md:pt-8 flex flex-col md:flex-row content-center max-w-6xl mx-auto md:space-x-6">
         {/* Movie Poster */}
         <Image
           src={imageUrl}
@@ -39,18 +39,18 @@ export default async function MoviePage({ params }) {
         />
         {/* Movie Details */}
         <div className="p-2">
-          <h2 className="text-lg mb-3 font-bold">
+          <h2 className="text-lg  mb-3 font-bold">
             {movie.title || movie.name || "Unknown Title"}
           </h2>
-          <p className="text-lg mb-3">
+          <p className="text-lg text-gray-300 mb-3">
             {movie.overview || "No overview available."}
           </p>
           <p>
-            <span className="font-semibold mr-1">Date released:</span>
+            <span className="font-semibold mr-1 text-gray-300">Date released:</span>
             {movie.release_date || movie.first_air_date || "Unknown date"}
           </p>
           <p className="mb-3">
-            <span className="font-semibold mr-1">Rating:</span>
+            <span className="font-semibold mr-1 text-gray-300">Rating:</span>
             {movie.vote_average || "N/A"} ({movie.vote_count || "0"} votes)
           </p>
         </div>
